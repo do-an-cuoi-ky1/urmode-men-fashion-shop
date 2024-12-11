@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa Hàng Thời Trang URMODE</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="image.png" alt="URMODE Logo" class="logo-img">
+            <h1>Cửa Hàng Thời Trang URMODE</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Bên trái: Nhập số đo -->
+            <div class="input-section">
+                <h2>Nhập Số Đo</h2>
+                <form id="sizeForm">
+                    <label for="height">Chiều cao (cm):</label>
+                    <input type="number" id="height" name="height" required>
+
+                    <label for="weight">Cân nặng (kg):</label>
+                    <input type="number" id="weight" name="weight" required>
+
+                    <label for="chest">Vòng ngực (cm):</label>
+                    <input type="number" id="chest" name="chest" required>
+
+                    <label for="waist">Vòng eo (cm):</label>
+                    <input type="number" id="waist" name="waist" required>
+
+                    <label for="leg">Chiều dài chân (cm):</label>
+                    <input type="number" id="leg" name="leg" required>
+
+                    <button type="button" id="calculateButton">Tính Size</button>
+                </form>
+                <div id="result">
+                    <p id="shirtSize"></p>
+                    <p id="pantSize"></p>
+                </div>
+            </div>
+
+            <!-- Bên phải: Bảng size -->
+            <div class="size-chart">
+                <h2>Bảng Size Áo</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Chiều cao</th>
+                            <th>Cân nặng</th>
+                            <th>Vòng ngực</th>
+                            <th>Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>160-167 cm</td>
+                            <td>50-60 kg</td>
+                            <td>92-100 cm</td>
+                            <td>S</td>
+                        </tr>
+                        <tr>
+                            <td>163-170 cm</td>
+                            <td>55-65 kg</td>
+                            <td>96-104 cm</td>
+                            <td>M</td>
+                        </tr>
+                        <tr>
+                            <td>165-172 cm</td>
+                            <td>65-75 kg</td>
+                            <td>100-108 cm</td>
+                            <td>L</td>
+                        </tr>
+                        <tr>
+                            <td>170-180 cm</td>
+                            <td>75-90 kg</td>
+                            <td>104-112 cm</td>
+                            <td>XL</td>
+                        </tr>
+                        <tr>
+                            <td>170-190 cm</td>
+                            <td>85-100 kg</td>
+                            <td>106-114 cm</td>
+                            <td>XLL</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Bảng Size Quần</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Vòng eo</th>
+                            <th>Chiều dài chân</th>
+                            <th>Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>70-75 cm</td>
+                            <td>70-75 cm</td>
+                            <td>S</td>
+                        </tr>
+                        <tr>
+                            <td>75-80 cm</td>
+                            <td>75-80 cm</td>
+                            <td>M</td>
+                        </tr>
+                        <tr>
+                            <td>80-85 cm</td>
+                            <td>80-85 cm</td>
+                            <td>L</td>
+                        </tr>
+                        <tr>
+                            <td>85-90 cm</td>
+                            <td>85-90 cm</td>
+                            <td>XL</td>
+                        </tr>
+                        <tr>
+                            <td>90-95 cm</td>
+                            <td>90-95 cm</td>
+                            <td>XLL</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Cửa Hàng Thời Trang URMODE. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
