@@ -52,7 +52,7 @@ document.getElementById("calculateButton").addEventListener("click", function ()
         return closestSize;
     }
 
-    // Hàm tìm size gần nhất cho quần (ưu tiên chiều dài chân)
+    // Hàm tìm size quần ưu tiên chiều dài chân
     function findClosestPantSize(sizes, measurements) {
         let closestSize = "Không xác định";
         let minDifference = Infinity;
@@ -71,8 +71,11 @@ document.getElementById("calculateButton").addEventListener("click", function ()
                 Math.abs(measurements.waist - waistRange[1])
             );
 
-            // Ưu tiên chiều dài chân (legDiff nhân trọng số thấp hơn)
-            const totalDifference = legDiff * 0.5 + waistDiff;
+            // Chỉ tính theo chiều dài chân nếu chênh lệch eo quá lớn
+            let totalDifference = legDiff;
+            if (waistDiff <= 10) {
+                totalDifference += waistDiff;
+            }
 
             if (totalDifference < minDifference) {
                 minDifference = totalDifference;
