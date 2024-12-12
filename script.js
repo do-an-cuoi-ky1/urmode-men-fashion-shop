@@ -26,32 +26,37 @@ document.getElementById("calculateButton").addEventListener("click", function ()
         { size: "XLL", waist: [90, 95], leg: [90, 95] },
     ];
 
-    // Tìm size áo gần nhất
-    let minShirtDifference = Infinity;
-    shirtSizes.forEach((size) => {
-        const heightDiff = Math.min(Math.abs(height - size.height[0]), Math.abs(height - size.height[1]));
-        const weightDiff = Math.min(Math.abs(weight - size.weight[0]), Math.abs(weight - size.weight[1]));
-        const chestDiff = Math.min(Math.abs(chest - size.chest[0]), Math.abs(chest - size.chest[1]));
-        const totalDiff = heightDiff + weightDiff + chestDiff;
+    // Hàm tìm size gần nhất
+    function findClosestSize(sizes, measurements) {
+        let closestSize = "Không xác định";
+        let minDifference = Infinity;
 
-        if (totalDiff < minShirtDifference) {
-            minShirtDifference = totalDiff;
-            shirtSize = size.size;
-        }
-    });
+        sizes.forEach((size) => {
+            let totalDifference = 0;
+            for (let key in measurements) {
+                const range = size[key];
+                const value = measurements[key];
+                const diff = Math.min(
+                    Math.abs(value - range[0]),
+                    Math.abs(value - range[1])
+                );
+                totalDifference += diff;
+            }
+
+            if (totalDifference < minDifference) {
+                minDifference = totalDifference;
+                closestSize = size.size;
+            }
+        });
+
+        return closestSize;
+    }
+
+    // Tìm size áo gần nhất
+    shirtSize = findClosestSize(shirtSizes, { height, weight, chest });
 
     // Tìm size quần gần nhất
-    let minPantDifference = Infinity;
-    pantSizes.forEach((size) => {
-        const waistDiff = Math.min(Math.abs(waist - size.waist[0]), Math.abs(waist - size.waist[1]));
-        const legDiff = Math.min(Math.abs(leg - size.leg[0]), Math.abs(leg - size.leg[1]));
-        const totalDiff = waistDiff + legDiff;
-
-        if (totalDiff < minPantDifference) {
-            minPantDifference = totalDiff;
-            pantSize = size.size;
-        }
-    });
+    pantSize = findClosestSize(pantSizes, { waist, leg });
 
     // Hiển thị kết quả
     document.getElementById("shirtSize").textContent = "Size Áo (gợi ý): " + shirtSize;
