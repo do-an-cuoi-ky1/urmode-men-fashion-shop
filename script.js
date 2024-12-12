@@ -26,7 +26,7 @@ document.getElementById("calculateButton").addEventListener("click", function ()
         { size: "XLL", waist: [90, 95], leg: [90, 95] },
     ];
 
-    // Hàm tìm size gần nhất
+    // Hàm tìm size gần nhất cho áo
     function findClosestSize(sizes, measurements) {
         let closestSize = "Không xác định";
         let minDifference = Infinity;
@@ -52,11 +52,42 @@ document.getElementById("calculateButton").addEventListener("click", function ()
         return closestSize;
     }
 
+    // Hàm tìm size gần nhất cho quần (ưu tiên chiều dài chân)
+    function findClosestPantSize(sizes, measurements) {
+        let closestSize = "Không xác định";
+        let minDifference = Infinity;
+
+        sizes.forEach((size) => {
+            const waistRange = size.waist;
+            const legRange = size.leg;
+
+            const legDiff = Math.min(
+                Math.abs(measurements.leg - legRange[0]),
+                Math.abs(measurements.leg - legRange[1])
+            );
+
+            const waistDiff = Math.min(
+                Math.abs(measurements.waist - waistRange[0]),
+                Math.abs(measurements.waist - waistRange[1])
+            );
+
+            // Ưu tiên chiều dài chân (legDiff nhân trọng số thấp hơn)
+            const totalDifference = legDiff * 0.5 + waistDiff;
+
+            if (totalDifference < minDifference) {
+                minDifference = totalDifference;
+                closestSize = size.size;
+            }
+        });
+
+        return closestSize;
+    }
+
     // Tìm size áo gần nhất
     shirtSize = findClosestSize(shirtSizes, { height, weight, chest });
 
-    // Tìm size quần gần nhất
-    pantSize = findClosestSize(pantSizes, { waist, leg });
+    // Tìm size quần gần nhất (ưu tiên chiều dài chân)
+    pantSize = findClosestPantSize(pantSizes, { waist, leg });
 
     // Hiển thị kết quả
     document.getElementById("shirtSize").textContent = "Size Áo (gợi ý): " + shirtSize;
