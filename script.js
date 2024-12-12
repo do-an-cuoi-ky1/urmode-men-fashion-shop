@@ -8,33 +8,52 @@ document.getElementById("calculateButton").addEventListener("click", function ()
     let shirtSize = "Không xác định";
     let pantSize = "Không xác định";
 
-    // Tính size áo
-    if (height >= 160 && height <= 167 && weight >= 50 && weight <= 60 && chest >= 92 && chest <= 100) {
-        shirtSize = "S";
-    } else if (height >= 163 && height <= 170 && weight >= 55 && weight <= 65 && chest >= 96 && chest <= 104) {
-        shirtSize = "M";
-    } else if (height >= 165 && height <= 172 && weight >= 65 && weight <= 75 && chest >= 100 && chest <= 108) {
-        shirtSize = "L";
-    } else if (height >= 170 && height <= 180 && weight >= 75 && weight <= 90 && chest >= 104 && chest <= 112) {
-        shirtSize = "XL";
-    } else if (height >= 170 && height <= 190 && weight >= 85 && weight <= 100 && chest >= 106 && chest <= 114) {
-        shirtSize = "XLL";
-    }
+    // Bảng tiêu chí size áo
+    const shirtSizes = [
+        { size: "S", height: [160, 167], weight: [50, 60], chest: [92, 100] },
+        { size: "M", height: [163, 170], weight: [55, 65], chest: [96, 104] },
+        { size: "L", height: [165, 172], weight: [65, 75], chest: [100, 108] },
+        { size: "XL", height: [170, 180], weight: [75, 90], chest: [104, 112] },
+        { size: "XLL", height: [170, 190], weight: [85, 100], chest: [106, 114] },
+    ];
 
-    // Tính size quần
-    if (waist >= 70 && waist <= 75 && leg >= 70 && leg <= 75) {
-        pantSize = "S";
-    } else if (waist >= 75 && waist <= 80 && leg >= 75 && leg <= 80) {
-        pantSize = "M";
-    } else if (waist >= 80 && waist <= 85 && leg >= 80 && leg <= 85) {
-        pantSize = "L";
-    } else if (waist >= 85 && waist <= 90 && leg >= 85 && leg <= 90) {
-        pantSize = "XL";
-    } else if (waist >= 90 && waist <= 95 && leg >= 90 && leg <= 95) {
-        pantSize = "XLL";
-    }
+    // Bảng tiêu chí size quần
+    const pantSizes = [
+        { size: "S", waist: [70, 75], leg: [70, 75] },
+        { size: "M", waist: [75, 80], leg: [75, 80] },
+        { size: "L", waist: [80, 85], leg: [80, 85] },
+        { size: "XL", waist: [85, 90], leg: [85, 90] },
+        { size: "XLL", waist: [90, 95], leg: [90, 95] },
+    ];
+
+    // Tìm size áo gần nhất
+    let minShirtDifference = Infinity;
+    shirtSizes.forEach((size) => {
+        const heightDiff = Math.min(Math.abs(height - size.height[0]), Math.abs(height - size.height[1]));
+        const weightDiff = Math.min(Math.abs(weight - size.weight[0]), Math.abs(weight - size.weight[1]));
+        const chestDiff = Math.min(Math.abs(chest - size.chest[0]), Math.abs(chest - size.chest[1]));
+        const totalDiff = heightDiff + weightDiff + chestDiff;
+
+        if (totalDiff < minShirtDifference) {
+            minShirtDifference = totalDiff;
+            shirtSize = size.size;
+        }
+    });
+
+    // Tìm size quần gần nhất
+    let minPantDifference = Infinity;
+    pantSizes.forEach((size) => {
+        const waistDiff = Math.min(Math.abs(waist - size.waist[0]), Math.abs(waist - size.waist[1]));
+        const legDiff = Math.min(Math.abs(leg - size.leg[0]), Math.abs(leg - size.leg[1]));
+        const totalDiff = waistDiff + legDiff;
+
+        if (totalDiff < minPantDifference) {
+            minPantDifference = totalDiff;
+            pantSize = size.size;
+        }
+    });
 
     // Hiển thị kết quả
-    document.getElementById("shirtSize").textContent = "Size Áo: " + shirtSize;
-    document.getElementById("pantSize").textContent = "Size Quần: " + pantSize;
+    document.getElementById("shirtSize").textContent = "Size Áo (gợi ý): " + shirtSize;
+    document.getElementById("pantSize").textContent = "Size Quần (gợi ý): " + pantSize;
 });
